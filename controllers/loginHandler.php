@@ -12,13 +12,22 @@ if (isset($_POST['login_user'])) {
     }
 
 	if (count($errors) == 0) {
-		$password = md5($password);
-		$query = "SELECT * FROM user WHERE username='$username' AND password='$password'";
+		// $password = md5($password);
+		$query = "SELECT * FROM users_list WHERE user_name='$username' AND user_password='$password'";
 		$results = mysqli_query($conn, $query);
 		if (mysqli_num_rows($results) == 1) {
-			$_SESSION['username'] = $username;
+			$_SESSION['user_name'] = $username;
 			$_SESSION['success'] = "You are now logged in";
-			header('location: index.php');
+			$row = mysqli_fetch_row($results);
+			if($row[4] == 'superadmin') {
+				header('Location: dashboards/superadmin/');
+			}
+			else if($row[4] == 'admin') {
+				header('Location: dashboards/admin/');
+			}
+			else {
+				header('Location: dashobards/manager/');
+			}
 		}
 		else {
 			array_push($errors, "Please Enter Valid Username or Password");
