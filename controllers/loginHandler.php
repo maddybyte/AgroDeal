@@ -17,16 +17,18 @@ if (isset($_POST['login_user'])) {
 		$results = mysqli_query($conn, $query);
 		if (mysqli_num_rows($results) == 1) {
 			$_SESSION['user_name'] = $username;
-			$_SESSION['success'] = "You are now logged in";
 			$row = mysqli_fetch_row($results);
 			if($row[4] == 'superadmin') {
+				$_SESSION['user_type'] = 'superadmin'; 
 				header('Location: dashboards/superadmin/');
 			}
 			else if($row[4] == 'admin') {
+				$_SESSION['user_type'] = 'admin'; 
 				header('Location: dashboards/admin/');
 			}
 			else {
-				header('Location: dashobards/manager/');
+				$_SESSION['user_type'] = 'manager';
+				header('Location: dashboards/manager/');
 			}
 		}
 		else {
