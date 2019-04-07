@@ -5,6 +5,6 @@
 - [x] Session Handling
 - [x] Folder Structure
 - [ ] Profile Page Styling
-- [ ] Profile Page functinality
+- [ ] Profile Page functionality
 - [ ] Products display and categorise
 - [ ] Think on other functionality
